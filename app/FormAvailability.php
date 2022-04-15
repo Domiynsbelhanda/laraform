@@ -13,7 +13,7 @@ class FormAvailability extends Model
     protected $dates = ['deleted_at', 'open_form_at', 'close_form_at'];
 
     protected $fillable = [
-        'form_id', 'open_form_at', 'close_form_at', 'response_count_limit', 'available_weekday', 'available_start_time', 'available_end_time', 'closed_form_message'
+        'form_id', 'open_form_at', 'close_form_at', 'response_count_limit', 'available_weekday', 'available_start_time', 'available_end_time', 'closed_form_message',
     ];
 
     public function form()
@@ -75,12 +75,12 @@ class FormAvailability extends Model
             return
                 $query->whereNotNull('response_count_limit')
                     ->whereExists(function ($q) use ($operator) {
-                    $q->select(DB::raw(1))
+                        $q->select(DB::raw(1))
                         ->from('forms')
                         ->whereNull('deleted_at')
                         ->whereRaw('form_availabilities.form_id = forms.id')
                         ->whereRaw("(select count(*) from form_responses where forms.id = form_responses.form_id and form_responses.deleted_at is null group by form_id) {$operator} form_availabilities.response_count_limit");
-                });
+                    });
         }
 
         return $query;
@@ -93,7 +93,6 @@ class FormAvailability extends Model
                 ->whereAvailabilityOpensInTimePeriod();
         });
     }
-
 
     public function scopeWhereTodayIsAvailabilityWeekDay($query)
     {

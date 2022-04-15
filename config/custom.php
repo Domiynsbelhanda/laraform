@@ -5,7 +5,7 @@ return [
         'owner' => [
             'name' => env('APP_OWNER', 'Kennedy Osaze'),
             'url' => env('APP_OWNER_URL', '#'),
-        ]
+        ],
     ],
 
     'forms' => [

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Form;
 
-use Auth;
 use App\Form;
-use Validator;
 use App\FormAvailability;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
+use Illuminate\Http\Request;
+use Validator;
 
 class FormAvailabilityController extends Controller
 {
@@ -17,15 +17,17 @@ class FormAvailabilityController extends Controller
             $current_user = Auth::user();
 
             $form = Form::where('code', $form)->first();
-            if (!$form || $form->user_id !== $current_user->id) {
+            if (! $form || $form->user_id !== $current_user->id) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_found',
-                    'error' => 'Form is invalid'
+                    'error' => 'Form is invalid',
                 ]);
             }
 
-            if (empty(array_filter($request->except('_token'), function ($value) { return $value !== null; }))) {
+            if (empty(array_filter($request->except('_token'), function ($value) {
+                return $value !== null;
+            }))) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'validation_failed',
@@ -41,8 +43,8 @@ class FormAvailabilityController extends Controller
             ]);
 
             $request->merge([
-                'open_form_at' => trim($request->open_form_date . ' ' . $request->open_form_time) ?: null,
-                'close_form_at' => trim($request->close_form_date . ' ' . $request->close_form_time) ?: null
+                'open_form_at' => trim($request->open_form_date.' '.$request->open_form_time) ?: null,
+                'close_form_at' => trim($request->close_form_date.' '.$request->close_form_time) ?: null,
             ]);
 
             $validator = Validator::make($request->all(), $this->generateValidationRules($request, $form));
@@ -51,7 +53,7 @@ class FormAvailabilityController extends Controller
                 return response()->json([
                     'success' => false,
                     'error_message' => 'validation_failed',
-                    'error' => $validator->errors()->first()
+                    'error' => $validator->errors()->first(),
                 ]);
             }
 
@@ -77,26 +79,26 @@ class FormAvailabilityController extends Controller
             $current_user = Auth::user();
 
             $form = Form::where('code', $form)->first();
-            if (!$form || $form->user_id !== $current_user->id) {
+            if (! $form || $form->user_id !== $current_user->id) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_found',
-                    'error' => 'Form is invalid'
+                    'error' => 'Form is invalid',
                 ]);
             }
 
-            if (!($availability = $form->availability)) {
+            if (! ($availability = $form->availability)) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'bad_request',
-                    'error' => 'Availability settings for this form is not set yet'
+                    'error' => 'Availability settings for this form is not set yet',
                 ]);
             }
 
             $availability->delete();
 
             return response()->json([
-                'success' => true
+                'success' => true,
             ]);
         }
     }
@@ -119,7 +121,7 @@ class FormAvailabilityController extends Controller
         }
 
         if ($data['open_form_at']) {
-            $rule_option = (!empty($data['response_limit'])) ? 'nullable' : 'required';
+            $rule_option = (! empty($data['response_limit'])) ? 'nullable' : 'required';
 
             $rules['close_form_date'] = "{$rule_option}|date";
             $rules['close_form_time'] = "{$rule_option}|date_format:H:i:s";
@@ -128,12 +130,12 @@ class FormAvailabilityController extends Controller
         }
 
         if ($data['open_form_at']) {
-            $rule_option = (!empty($data['close_form_at'])) ? 'nullable' : 'required';
+            $rule_option = (! empty($data['close_form_at'])) ? 'nullable' : 'required';
             $rules['response_limit'] = "{$rule_option}|integer|min:1|max:999999999";
         }
 
         if ($data['start_time'] || $data['end_time']) {
-            $rules['weekday'] = 'required|integer|in:' . implode(',', range(0, 6));
+            $rules['weekday'] = 'required|integer|in:'.implode(',', range(0, 6));
         }
 
         if ($data['weekday'] || $data['end_time']) {

@@ -188,7 +188,7 @@ return [
         ],
         'linear_scale.*.options.min.value' => [
             'required_with' => 'Each linear scale question must have at least a minimum scale value',
-            'in' => 'Invalid minimum scale value'
+            'in' => 'Invalid minimum scale value',
         ],
         'linear_scale.*.options.min.label' => [
             'min' => 'Each linear scale question minimum label must be at least :min characters',
@@ -196,7 +196,7 @@ return [
         ],
         'linear_scale.*.options.max.value' => [
             'required_with' => 'Each linear scale question must have at least a maximum scale value',
-            'in' => 'Invalid maximum scale value'
+            'in' => 'Invalid maximum scale value',
         ],
         'linear_scale.*.options.max.label' => [
             'min' => 'Each linear scale question maximum label must be at least :min characters',
@@ -207,27 +207,27 @@ return [
             'required' => 'At least one email address is required',
         ],
         'recipients_emails' => [
-            'max' => 'The email addresses entered should not be more than :max'
+            'max' => 'The email addresses entered should not be more than :max',
         ],
         'recipients_emails.*' => [
             'email' => 'One (or more) of the email addresses provided is not valid',
-            'max' => 'The maximum length for each email address is :max'
+            'max' => 'The maximum length for each email address is :max',
         ],
         'collaborator_emails' => [
             'required' => 'At least one collaborator email address is required',
-            'max' => 'The email addresses entered should not be more than :max'
+            'max' => 'The email addresses entered should not be more than :max',
         ],
         'collaborator_emails.*' => [
             'email' => 'One (or more) of the email addresses provided is not valid',
-            'max' => 'The maximum length for each email address is :max'
+            'max' => 'The maximum length for each email address is :max',
         ],
         'open_form_date' => [
             'required' => 'The date for which the form is open is required',
-            'date' => 'The date for which the form is open is invalid'
+            'date' => 'The date for which the form is open is invalid',
         ],
         'open_form_time' => [
             'required' => 'The time for which the form is open is required',
-            'date_format' => 'The time for which the form is open is invalid'
+            'date_format' => 'The time for which the form is open is invalid',
         ],
         'open_form_at' => [
             'date_format' => 'The date or time for which the form is open is invalid',
@@ -235,11 +235,11 @@ return [
         ],
         'close_form_date' => [
             'required' => 'The date for which the form is closed or the response limit must be specified',
-            'date' => 'The date for which the form is closed is invalid'
+            'date' => 'The date for which the form is closed is invalid',
         ],
         'close_form_time' => [
             'required' => 'The time for which the form is open is required',
-            'date_format' => 'The time for which the form is open is invalid'
+            'date_format' => 'The time for which the form is open is invalid',
         ],
         'close_form_at' => [
             'date_format' => 'The date or time for which the form is closed is invalid',
@@ -261,12 +261,12 @@ return [
         'end_time' => [
             'required' => 'The day time of the week to close the form is required',
             'date_format' => 'The day time of the week to close the form is invalid',
-            'after' => 'The day time of the week to close the form must be after the time to open the form'
+            'after' => 'The day time of the week to close the form must be after the time to open the form',
         ],
         'closed_form_message' => [
             'min_words' => 'The closed form message should be at least 3 words',
-            'max' => 'The closed form message should not be more than :max characters'
-        ]
+            'max' => 'The closed form message should not be more than :max characters',
+        ],
     ],
 
     /*

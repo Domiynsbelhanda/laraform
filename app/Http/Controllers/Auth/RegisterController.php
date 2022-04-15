@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -39,7 +39,7 @@ class RegisterController extends Controller
         $user_data = [];
         if ($request->has('code')) {
             $user = User::where('email_token', $request->code)->first();
-            abort_if(!$user, 404);
+            abort_if(! $user, 404);
 
             $user_data = ['code' => $request->code, 'email' => $user->email];
         }
@@ -52,7 +52,7 @@ class RegisterController extends Controller
         $has_code = $request->has('code');
         if ($has_code) {
             $user = User::where('email_token', $request->code)->first();
-            abort_if(!$user, 404);
+            abort_if(! $user, 404);
         }
 
         $this->validator($request->all(), $has_code)->validate();
@@ -85,7 +85,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
 
-        if (!$ignore_email) {
+        if (! $ignore_email) {
             $rules['email'] = ['required', 'string', 'email', 'max:190', 'unique:users,email,null,id,deleted_at,null'];
         }
 

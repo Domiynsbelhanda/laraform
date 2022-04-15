@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Form;
 
-use Auth;
 use App\Form;
-use Validator;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
+use Illuminate\Http\Request;
+use Validator;
 
 class FormController extends Controller
 {
@@ -55,13 +55,13 @@ class FormController extends Controller
 
         $this->validate($request, [
             'title' => 'required|string|min:3|max:190',
-            'description' => 'required|string|min_words:3|max:30000'
+            'description' => 'required|string|min_words:3|max:30000',
         ]);
 
         $form = new Form([
             'title' => ucfirst($request->title),
             'description' => ucfirst($request->description),
-            'status' => Form::STATUS_DRAFT
+            'status' => Form::STATUS_DRAFT,
         ]);
 
         $form->generateCode();
@@ -73,7 +73,7 @@ class FormController extends Controller
     public function show(Form $form)
     {
         $current_user = Auth::user();
-        $not_allowed = ($form->user_id !== $current_user->id && !$current_user->isFormCollaborator($form->id));
+        $not_allowed = ($form->user_id !== $current_user->id && ! $current_user->isFormCollaborator($form->id));
         abort_if($not_allowed, 404);
 
         $form->load('fields', 'collaborationUsers', 'availability');
@@ -84,7 +84,7 @@ class FormController extends Controller
     public function edit(Form $form)
     {
         $current_user = Auth::user();
-        $not_allowed = ($form->user_id !== $current_user->id && !$current_user->isFormCollaborator($form->id));
+        $not_allowed = ($form->user_id !== $current_user->id && ! $current_user->isFormCollaborator($form->id));
         abort_if($not_allowed, 404);
 
         return view('forms.form.edit', compact('form'));
@@ -93,12 +93,12 @@ class FormController extends Controller
     public function update(Request $request, Form $form)
     {
         $current_user = Auth::user();
-        $not_allowed = ($form->user_id !== $current_user->id && !$current_user->isFormCollaborator($form->id));
+        $not_allowed = ($form->user_id !== $current_user->id && ! $current_user->isFormCollaborator($form->id));
         abort_if($not_allowed, 404);
 
         $this->validate($request, [
             'title' => 'required|string|min:3|max:190',
-            'description' => 'required|string|min_words:3|max:30000'
+            'description' => 'required|string|min_words:3|max:30000',
         ]);
 
         $form->title = $request->title;
@@ -113,7 +113,7 @@ class FormController extends Controller
         if ($request->ajax()) {
             $form = Form::where('code', $form)->with('fields')->first();
 
-            if (!$form) {
+            if (! $form) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'validation_failed',
@@ -122,12 +122,12 @@ class FormController extends Controller
             }
 
             $current_user = Auth::user();
-            $not_allowed = ($form->user_id !== $current_user->id && !$current_user->isFormCollaborator($form->id));
+            $not_allowed = ($form->user_id !== $current_user->id && ! $current_user->isFormCollaborator($form->id));
             if ($not_allowed) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_allowed',
-                    'error' =>  'Form is invalid'
+                    'error' =>  'Form is invalid',
                 ]);
             }
 
@@ -137,7 +137,7 @@ class FormController extends Controller
             foreach ($request->except('_token') as $key => $value) {
                 $key_parts = explode('_', $key);
 
-                if (!is_array($key_parts) || count($key_parts) < 3) {
+                if (! is_array($key_parts) || count($key_parts) < 3) {
                     $is_invalid_request = true;
                     break;
                 }
@@ -147,7 +147,7 @@ class FormController extends Controller
                 $unique_key = array_shift($key_parts);
                 $template = implode('_', array_reverse($key_parts));
 
-                if (!in_array(str_replace('_', '-', $template), get_form_templates()->pluck('alias')->all())) {
+                if (! in_array(str_replace('_', '-', $template), get_form_templates()->pluck('alias')->all())) {
                     $is_invalid_request = true;
                     break;
                 }
@@ -155,7 +155,7 @@ class FormController extends Controller
                 if ($template === 'linear_scale') {
                     $sub_key = substr($field, 0, 3);
                     if (in_array($sub_key, ['min', 'max'])) {
-                        $field = "options.{$sub_key}." . substr($field, 3);
+                        $field = "options.{$sub_key}.".substr($field, 3);
                     }
                 }
 
@@ -168,7 +168,7 @@ class FormController extends Controller
                 return response()->json([
                     'success' => false,
                     'error_message' => 'validation_failed',
-                    'error' =>  'Invalid request made. Please refresh the page'
+                    'error' =>  'Invalid request made. Please refresh the page',
                 ]);
             }
 
@@ -184,7 +184,7 @@ class FormController extends Controller
                 'linear_scale.*.question' => 'sometimes|required|string|min:3|max:255',
                 'linear_scale.*.options.min.value' => 'required_with:linear_scale.*.question|integer|in:0,1',
                 'linear_scale.*.options.min.label' => 'nullable|string|min:3|max:255',
-                'linear_scale.*.options.max.value' => 'required_with:linear_scale.*.question|integer|in:' . implode(',', range(2,10)),
+                'linear_scale.*.options.max.value' => 'required_with:linear_scale.*.question|integer|in:'.implode(',', range(2, 10)),
                 'linear_scale.*.options.max.label' => 'nullable|string|min:3|max:255',
                 'date.*.question' => 'sometimes|required|string|min:3|max:255',
                 'time.*.question' => 'sometimes|required|string|min:3|max:255',
@@ -192,10 +192,11 @@ class FormController extends Controller
 
             if ($validator->fails()) {
                 $errors = collect($validator->errors())->flatten();
+
                 return response()->json([
                     'success' => false,
                     'error_message' => 'validation_failed',
-                    'error' =>  $errors->first()
+                    'error' =>  $errors->first(),
                 ]);
             }
 
@@ -219,7 +220,7 @@ class FormController extends Controller
     public function previewForm(Form $form)
     {
         $current_user = Auth::user();
-        $not_allowed = ($form->user_id !== $current_user->id && !$current_user->isFormCollaborator($form->id));
+        $not_allowed = ($form->user_id !== $current_user->id && ! $current_user->isFormCollaborator($form->id));
         abort_if($not_allowed, 404);
 
         return view('forms.form.view_form', ['form' => $form, 'view_type' => 'preview']);
@@ -228,10 +229,10 @@ class FormController extends Controller
     public function openFormForResponse(Form $form)
     {
         $current_user = Auth::user();
-        $not_allowed = ($form->user_id !== $current_user->id && !$current_user->isFormCollaborator($form->id));
+        $not_allowed = ($form->user_id !== $current_user->id && ! $current_user->isFormCollaborator($form->id));
         abort_if($not_allowed, 403);
 
-        $not_allowed = (!in_array($form->status, [Form::STATUS_PENDING, Form::STATUS_CLOSED]));
+        $not_allowed = (! in_array($form->status, [Form::STATUS_PENDING, Form::STATUS_CLOSED]));
         abort_if($not_allowed, 403);
 
         $form->status = Form::STATUS_OPEN;
@@ -248,7 +249,7 @@ class FormController extends Controller
     public function closeFormToResponse(Form $form)
     {
         $current_user = Auth::user();
-        $not_allowed = ($form->user_id !== $current_user->id && !$current_user->isFormCollaborator($form->id));
+        $not_allowed = ($form->user_id !== $current_user->id && ! $current_user->isFormCollaborator($form->id));
         abort_if($not_allowed, 403);
 
         $not_allowed = ($form->status !== Form::STATUS_OPEN);
@@ -267,7 +268,7 @@ class FormController extends Controller
 
     public function viewForm(Form $form)
     {
-        $not_allowed = !in_array($form->status, [Form::STATUS_OPEN, Form::STATUS_CLOSED]);
+        $not_allowed = ! in_array($form->status, [Form::STATUS_OPEN, Form::STATUS_CLOSED]);
         abort_if($not_allowed, 404);
 
         return view('forms.form.view_form', ['form' => $form, 'view_type' => 'form']);
@@ -279,11 +280,11 @@ class FormController extends Controller
             $form = Form::where('code', $form)->first();
 
             $current_user = Auth::user();
-            if (!$form || ($form->user_id !== $current_user->id && !$current_user->isFormCollaborator($form->id))) {
+            if (! $form || ($form->user_id !== $current_user->id && ! $current_user->isFormCollaborator($form->id))) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_found',
-                    'error' => 'Form is invalid'
+                    'error' => 'Form is invalid',
                 ]);
             }
 
@@ -291,7 +292,7 @@ class FormController extends Controller
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_allowed',
-                    'error' => 'Form cannot be shared with others as it is not open yet.'
+                    'error' => 'Form cannot be shared with others as it is not open yet.',
                 ]);
             }
 
@@ -312,10 +313,11 @@ class FormController extends Controller
 
             if ($validator->fails()) {
                 $errors = collect($validator->errors())->flatten();
+
                 return response()->json([
                     'success' => false,
                     'error_message' => 'validation_failed',
-                    'error' => $errors->first()
+                    'error' => $errors->first(),
                 ]);
             }
 
@@ -329,7 +331,7 @@ class FormController extends Controller
             }
 
             return response()->json([
-                'success' => true
+                'success' => true,
             ]);
         }
     }
@@ -339,11 +341,11 @@ class FormController extends Controller
         if (request()->ajax()) {
             $form = Form::where('code', $form)->first();
 
-            if (!$form || $form->user_id !== Auth::id()) {
+            if (! $form || $form->user_id !== Auth::id()) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_found',
-                    'error' => 'Form is invalid'
+                    'error' => 'Form is invalid',
                 ]);
             }
 
@@ -351,11 +353,12 @@ class FormController extends Controller
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_allowed',
-                    'error' => 'Form cannot be deleted as it is still open. Close it first.'
+                    'error' => 'Form cannot be deleted as it is still open. Close it first.',
                 ]);
             }
 
             $form->delete();
+
             return response()->json([
                 'success' => true,
             ]);
@@ -373,7 +376,7 @@ class FormController extends Controller
 
         session()->flash('index', [
             'status' => 'success',
-            'message' => 'Form has been deleted'
+            'message' => 'Form has been deleted',
         ]);
 
         return redirect()->route('forms.index');

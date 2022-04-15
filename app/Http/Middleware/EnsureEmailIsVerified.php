@@ -15,7 +15,7 @@ class EnsureEmailIsVerified
      */
     public function handle($request, Closure $next)
     {
-        if (!request()->user() || !$request->user()->hasVerifiedEmail()) {
+        if (! request()->user() || ! $request->user()->hasVerifiedEmail()) {
             auth()->logout();
 
             session()->flash('login', [

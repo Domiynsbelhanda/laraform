@@ -2,16 +2,16 @@
 
 namespace App;
 
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 class FormField extends Model
 {
     use SoftDeletes, CascadeSoftDeletes;
 
     protected $fillable = [
-        'form_id', 'template', 'question', 'required', 'options', 'attribute', 'filled'
+        'form_id', 'template', 'question', 'required', 'options', 'attribute', 'filled',
     ];
 
     protected $casts = [
@@ -62,6 +62,7 @@ class FormField extends Model
                     if ($this->template == 'checkboxes') {
                         $option_selected_count = $responses->filter(function ($v, $k) use ($option) {
                             $value = (array) json_decode($v->answer);
+
                             return in_array($option, $value);
                         })->count();
                     } else {
@@ -92,7 +93,7 @@ class FormField extends Model
         return [
             'chart' => $use_chart,
             'name' => str_replace('.', '_', $this->attribute),
-            'data' => $data
+            'data' => $data,
         ];
     }
 }

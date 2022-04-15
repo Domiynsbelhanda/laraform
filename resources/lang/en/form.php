@@ -1,7 +1,8 @@
 <?php
+
 $now = \Moment::now();
 
-$short_answer_sub_template = <<<SUB_TEMPLATE
+$short_answer_sub_template = <<<'SUB_TEMPLATE'
 	<div class="panel template short-answer" id="" data-attribute-type="single">
 		<div class="panel-body mb-10">
 			<div class="form-group">
@@ -30,7 +31,7 @@ $short_answer_sub_template = <<<SUB_TEMPLATE
 	</div>
 SUB_TEMPLATE;
 
-$short_answer_main_template = <<<MAIN_TEMPLATE
+$short_answer_main_template = <<<'MAIN_TEMPLATE'
 	<div class="row template short-answer">
 		<div class="col-md-12">
 			<div class="form-group">
@@ -41,7 +42,7 @@ $short_answer_main_template = <<<MAIN_TEMPLATE
 	</div>
 MAIN_TEMPLATE;
 
-$long_answer_sub_template = <<<SUB_TEMPLATE
+$long_answer_sub_template = <<<'SUB_TEMPLATE'
 	<div class="panel template long-answer" id="" data-attribute-type="single">
 		<div class="panel-body mb-10">
 			<div class="form-group">
@@ -70,7 +71,7 @@ $long_answer_sub_template = <<<SUB_TEMPLATE
 	</div>
 SUB_TEMPLATE;
 
-$long_answer_main_template = <<<MAIN_TEMPLATE
+$long_answer_main_template = <<<'MAIN_TEMPLATE'
 	<div class="row template long-answer">
 		<div class="col-md-12">
 			<div class="form-group">
@@ -81,7 +82,7 @@ $long_answer_main_template = <<<MAIN_TEMPLATE
 	</div>
 MAIN_TEMPLATE;
 
-$multiple_choices_sub_template = <<<SUB_TEMPLATE
+$multiple_choices_sub_template = <<<'SUB_TEMPLATE'
 	<div class="panel template multiple-choices" id="" data-attribute-type="multiple">
 		<div class="panel-body mb-10">
 			<div class="form-group mb-10">
@@ -135,7 +136,7 @@ $multiple_choices_sub_template = <<<SUB_TEMPLATE
 	</div>
 SUB_TEMPLATE;
 
-$multiple_choices_main_template = <<<MAIN_TEMPLATE
+$multiple_choices_main_template = <<<'MAIN_TEMPLATE'
 	<div class="row template multiple-choices">
 		<div class="col-md-12">
 			<div class="form-group">
@@ -152,7 +153,7 @@ $multiple_choices_main_template = <<<MAIN_TEMPLATE
     </div>
 MAIN_TEMPLATE;
 
-$checkboxes_sub_template = <<<SUB_TEMPLATE
+$checkboxes_sub_template = <<<'SUB_TEMPLATE'
 	<div class="panel template checkboxes" id="" data-attribute-type="multiple">
 		<div class="panel-body mb-10">
 			<div class="form-group mb-10">
@@ -206,7 +207,7 @@ $checkboxes_sub_template = <<<SUB_TEMPLATE
 	</div>
 SUB_TEMPLATE;
 
-$checkboxes_main_template = <<<MAIN_TEMPLATE
+$checkboxes_main_template = <<<'MAIN_TEMPLATE'
 	<div class="row template checkboxes">
 		<div class="col-md-12">
 			<div class="form-group">
@@ -223,7 +224,7 @@ $checkboxes_main_template = <<<MAIN_TEMPLATE
 	</div>
 MAIN_TEMPLATE;
 
-$drop_down_sub_template = <<<SUB_TEMPLATE
+$drop_down_sub_template = <<<'SUB_TEMPLATE'
 	<div class="panel template drop-down" id="" data-attribute-type="multiple">
 		<div class="panel-body mb-10">
 			<div class="form-group mb-10">
@@ -277,7 +278,7 @@ $drop_down_sub_template = <<<SUB_TEMPLATE
 	</div>
 SUB_TEMPLATE;
 
-$drop_down_main_template = <<<MAIN_TEMPLATE
+$drop_down_main_template = <<<'MAIN_TEMPLATE'
 	<div class="row template drop-down">
 		<div class="col-md-12">
 			<div class="form-group">
@@ -291,7 +292,7 @@ $drop_down_main_template = <<<MAIN_TEMPLATE
 	</div>
 MAIN_TEMPLATE;
 
-$linear_scale_sub_template = <<<SUB_TEMPLATE
+$linear_scale_sub_template = <<<'SUB_TEMPLATE'
 	<div class="panel template linear-scale" id="" data-attribute-type="multiple">
 		<div class="panel-body mb-10">
 			<div class="form-group mb-10">
@@ -363,7 +364,7 @@ $linear_scale_sub_template = <<<SUB_TEMPLATE
 	</div>
 SUB_TEMPLATE;
 
-$linear_scale_main_template = <<<MAIN_TEMPLATE
+$linear_scale_main_template = <<<'MAIN_TEMPLATE'
 	<div class="row template linear-scale">
 		<div class="col-md-12">
 			<div class="form-group">
@@ -381,7 +382,7 @@ $linear_scale_main_template = <<<MAIN_TEMPLATE
 	</div>
 MAIN_TEMPLATE;
 
-$date_sub_template = <<<SUB_TEMPLATE
+$date_sub_template = <<<'SUB_TEMPLATE'
 	<div class="panel template date" id="" data-attribute-type="single">
 		<div class="panel-body mb-10">
 			<div class="form-group">
@@ -427,7 +428,7 @@ $date_main_template = <<<MAIN_TEMPLATE
 	</div>
 MAIN_TEMPLATE;
 
-$time_sub_template = <<<SUB_TEMPLATE
+$time_sub_template = <<<'SUB_TEMPLATE'
 	<div class="panel template time" id="" data-attribute-type="single">
 		<div class="panel-body mb-10">
 			<div class="form-group">
@@ -474,60 +475,60 @@ $time_main_template = <<<MAIN_TEMPLATE
 MAIN_TEMPLATE;
 
 return [
-	[
-		'name' => 'Short Answer',
-		'alias' => 'short-answer',
-		'sub_template' => $short_answer_sub_template,
-		'main_template' => $short_answer_main_template,
-		'attribute_type' => 'string',
-	],
-	[
-		'name' => 'Long Answer',
-		'alias' => 'long-answer',
-		'sub_template' => $long_answer_sub_template,
-		'main_template' => $long_answer_main_template,
-		'attribute_type' => 'string',
-	],
-	[
-		'name' => 'Multiple Choice',
-		'alias' => 'multiple-choices',
-		'sub_template' => $multiple_choices_sub_template,
-		'main_template' => $multiple_choices_main_template,
-		'attribute_type' => 'array',
-	],
-	[
-		'name' => 'Chechboxes',
-		'alias' => 'checkboxes',
-		'sub_template' => $checkboxes_sub_template,
-		'main_template' => $checkboxes_main_template,
-		'attribute_type' => 'array',
-	],
-	[
-		'name' => 'Drop-down',
-		'alias' => 'drop-down',
-		'sub_template' => $drop_down_sub_template,
-		'main_template' => $drop_down_main_template,
-		'attribute_type' => 'array',
-	],
-	[
-		'name' => 'Linear Scale',
-		'alias' => 'linear-scale',
-		'sub_template' => $linear_scale_sub_template,
-		'main_template' => $linear_scale_main_template,
-		'attribute_type' => 'array',
-	],
-	[
-		'name' => 'Date',
-		'alias' => 'date',
-		'sub_template' => $date_sub_template,
-		'main_template' => $date_main_template,
-		'attribute_type' => 'string',
-	],
-	[
-		'name' => 'Time',
-		'alias' => 'time',
-		'sub_template' => $time_sub_template,
-		'main_template' => $time_main_template,
-		'attribute_type' => 'string',
-	],
+    [
+        'name' => 'Short Answer',
+        'alias' => 'short-answer',
+        'sub_template' => $short_answer_sub_template,
+        'main_template' => $short_answer_main_template,
+        'attribute_type' => 'string',
+    ],
+    [
+        'name' => 'Long Answer',
+        'alias' => 'long-answer',
+        'sub_template' => $long_answer_sub_template,
+        'main_template' => $long_answer_main_template,
+        'attribute_type' => 'string',
+    ],
+    [
+        'name' => 'Multiple Choice',
+        'alias' => 'multiple-choices',
+        'sub_template' => $multiple_choices_sub_template,
+        'main_template' => $multiple_choices_main_template,
+        'attribute_type' => 'array',
+    ],
+    [
+        'name' => 'Chechboxes',
+        'alias' => 'checkboxes',
+        'sub_template' => $checkboxes_sub_template,
+        'main_template' => $checkboxes_main_template,
+        'attribute_type' => 'array',
+    ],
+    [
+        'name' => 'Drop-down',
+        'alias' => 'drop-down',
+        'sub_template' => $drop_down_sub_template,
+        'main_template' => $drop_down_main_template,
+        'attribute_type' => 'array',
+    ],
+    [
+        'name' => 'Linear Scale',
+        'alias' => 'linear-scale',
+        'sub_template' => $linear_scale_sub_template,
+        'main_template' => $linear_scale_main_template,
+        'attribute_type' => 'array',
+    ],
+    [
+        'name' => 'Date',
+        'alias' => 'date',
+        'sub_template' => $date_sub_template,
+        'main_template' => $date_main_template,
+        'attribute_type' => 'string',
+    ],
+    [
+        'name' => 'Time',
+        'alias' => 'time',
+        'sub_template' => $time_sub_template,
+        'main_template' => $time_main_template,
+        'attribute_type' => 'string',
+    ],
 ];

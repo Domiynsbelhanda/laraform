@@ -9,6 +9,7 @@ class ProfileController extends Controller
     public function index()
     {
         $current_user = auth()->user();
+
         return view('profile', compact('current_user'));
     }
 
@@ -19,7 +20,7 @@ class ProfileController extends Controller
             'last_name' => 'required|string|min:3|max:100',
         ], [
             'first_name.required' => 'Your first name is required',
-            'last_name.required' => 'Your last name is required'
+            'last_name.required' => 'Your last name is required',
         ]);
 
         $current_user = auth()->user();
@@ -30,7 +31,7 @@ class ProfileController extends Controller
 
         session()->flash('index', [
             'status' => 'success',
-            'message' => 'Your profile has been updated successfully.'
+            'message' => 'Your profile has been updated successfully.',
         ]);
 
         return redirect()->route('profile.index');

@@ -5,10 +5,10 @@ namespace App\Jobs;
 use App\Form;
 use App\FormAvailability;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class OpenScheduledForm implements ShouldQueue
 {
@@ -43,7 +43,7 @@ class OpenScheduledForm implements ShouldQueue
                 foreach ($availabilities as $availability) {
                     $form_responses = $availability->form->responses;
 
-                    if (!$availability->response_count_limit || ($form_responses->count() < $availability->response_count_limit)) {
+                    if (! $availability->response_count_limit || ($form_responses->count() < $availability->response_count_limit)) {
                         $form = $availability->form;
                         $form->status = Form::STATUS_OPEN;
                         $form->save();

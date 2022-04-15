@@ -2,12 +2,12 @@
 
 namespace App;
 
-use Mail;
 use App\Mail\EmailVerificationMail;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Iatstuti\Database\Support\CascadeSoftDeletes;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Mail;
 
 class User extends Authenticatable
 {
@@ -64,6 +64,6 @@ class User extends Authenticatable
 
     public function isFormCollaborator($form)
     {
-        return !is_null($this->collaboratedForms()->find($form));
+        return ! is_null($this->collaboratedForms()->find($form));
     }
 }
