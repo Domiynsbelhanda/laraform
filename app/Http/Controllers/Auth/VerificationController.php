@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class VerificationController extends Controller
 {
@@ -17,7 +17,7 @@ class VerificationController extends Controller
     {
         $user = User::where('email_token', $token)->first();
 
-        if (!$user) {
+        if (! $user) {
             return redirect()->route('login');
         }
 

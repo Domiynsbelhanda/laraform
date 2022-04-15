@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Moment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Moment;
 
 class FieldResponse extends Model
 {
@@ -31,6 +31,7 @@ class FieldResponse extends Model
             case 'date':
             case 'time':
                 $format = ($template === 'date') ? 'jS F, Y' : 'g:i a';
+
                 return e(Moment::parse($this->answer)->format($format));
             default:
                 return clean($this->answer);

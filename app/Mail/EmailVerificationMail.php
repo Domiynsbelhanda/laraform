@@ -4,9 +4,9 @@ namespace App\Mail;
 
 use App\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class EmailVerificationMail extends Mailable implements ShouldQueue
 {
@@ -31,7 +31,7 @@ class EmailVerificationMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Confirm Your ' . config('app.name'). ' Account')
+        return $this->subject('Confirm Your '.config('app.name').' Account')
                     ->markdown('emails.email-verification');
     }
 }

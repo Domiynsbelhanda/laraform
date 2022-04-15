@@ -17,6 +17,6 @@ return [
     'reset' => 'Your password has been reset!',
     'sent' => 'We have e-mailed your password reset link!',
     'token' => 'This password reset token is invalid.',
-    'user' => "User with this email address does not exists",
+    'user' => 'User with this email address does not exists',
 
 ];

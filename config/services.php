@@ -40,7 +40,4 @@ return [
         ],
     ],
 
-    'bitly' => [
-        'access_token' => env('BITLY_TOKEN'),
-    ],
 ];

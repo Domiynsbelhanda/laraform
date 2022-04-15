@@ -2,8 +2,8 @@
 
 namespace App\Console;
 
-use App\Jobs\OpenScheduledForm;
 use App\Jobs\CloseScheduledForm;
+use App\Jobs\OpenScheduledForm;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 

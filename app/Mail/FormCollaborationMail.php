@@ -5,9 +5,9 @@ namespace App\Mail;
 use App\Form;
 use App\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class FormCollaborationMail extends Mailable implements ShouldQueue
 {

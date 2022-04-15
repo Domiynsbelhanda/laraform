@@ -2,20 +2,23 @@
 
 namespace App;
 
-use Mail;
-use App\Mail\ShareFormLinkMail;
 use App\Mail\FormCollaborationMail;
+use App\Mail\ShareFormLinkMail;
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Iatstuti\Database\Support\CascadeSoftDeletes;
+use Mail;
 
 class Form extends Model
 {
     use SoftDeletes, CascadeSoftDeletes;
 
     const STATUS_DRAFT = 'draft';
+
     const STATUS_PENDING = 'pending';
+
     const STATUS_OPEN = 'open';
+
     const STATUS_CLOSED = 'closed';
 
     protected $dates = ['deleted_at'];

@@ -6,7 +6,6 @@ use App\Form;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
-
 class FormResponseExport implements FromView
 {
     public $form;

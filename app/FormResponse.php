@@ -2,16 +2,16 @@
 
 namespace App;
 
+use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Iatstuti\Database\Support\CascadeSoftDeletes;
 
 class FormResponse extends Model
 {
     use SoftDeletes, CascadeSoftDeletes;
 
     protected $fillable = [
-        'form_id', 'response_code', 'respondent_ip', 'respondent_user_agent'
+        'form_id', 'response_code', 'respondent_ip', 'respondent_user_agent',
     ];
 
     protected $cascadeDeletes = ['fieldResponses'];
@@ -43,7 +43,7 @@ class FormResponse extends Model
             $field = $response->formField;
             $data = [];
 
-            if (!$field) {
+            if (! $field) {
                 continue;
             }
 

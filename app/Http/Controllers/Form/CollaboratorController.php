@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Form;
 
-use Auth;
 use App\Form;
-use App\User;
-use Validator;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use Auth;
+use Illuminate\Http\Request;
+use Validator;
 
 class CollaboratorController extends Controller
 {
@@ -17,11 +17,11 @@ class CollaboratorController extends Controller
             $form = Form::where('code', $form)->first();
 
             $current_user = Auth::user();
-            if (!$form || $form->user_id !== $current_user->id) {
+            if (! $form || $form->user_id !== $current_user->id) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_found',
-                    'error' => 'Form is invalid'
+                    'error' => 'Form is invalid',
                 ]);
             }
 
@@ -45,10 +45,11 @@ class CollaboratorController extends Controller
 
             if ($validator->fails()) {
                 $errors = collect($validator->errors())->flatten();
+
                 return response()->json([
                     'success' => false,
                     'error_message' => 'validation_failed',
-                    'error' => $errors->first()
+                    'error' => $errors->first(),
                 ]);
             }
 
@@ -61,7 +62,7 @@ class CollaboratorController extends Controller
                 return response()->json([
                     'success' => false,
                     'error_message' => 'bad_request',
-                    'error' => 'One of the users is already a collaborator of this form'
+                    'error' => 'One of the users is already a collaborator of this form',
                 ]);
             }
 
@@ -71,7 +72,7 @@ class CollaboratorController extends Controller
                 $user = $existing_users->where('email', $email)->first();
                 $is_user_new = false;
 
-                if (!$user) {
+                if (! $user) {
                     $is_user_new = true;
 
                     $user = User::create([
@@ -84,7 +85,7 @@ class CollaboratorController extends Controller
             }
 
             return response()->json([
-                'success' => true
+                'success' => true,
             ]);
         }
     }
@@ -95,27 +96,27 @@ class CollaboratorController extends Controller
             $form = Form::where('code', $form)->first();
 
             $current_user = Auth::user();
-            if (!$form || $form->user_id !== $current_user->id) {
+            if (! $form || $form->user_id !== $current_user->id) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_found',
-                    'error' => 'Form is invalid'
+                    'error' => 'Form is invalid',
                 ]);
             }
 
             $collaborator = $form->collaborationUsers()->find($collaborator);
-            if (!$collaborator) {
+            if (! $collaborator) {
                 return response()->json([
                     'success' => false,
                     'error_message' => 'not_found',
-                    'error' => 'Form collaborator is invalid'
+                    'error' => 'Form collaborator is invalid',
                 ]);
             }
 
             $form->collaborationUsers()->detach($collaborator->id);
 
             return response()->json([
-                'success' => true
+                'success' => true,
             ]);
         }
     }
